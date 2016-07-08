@@ -1,0 +1,11 @@
+*.o
+*.s
+*.iso
+memtest.bin
+memtest
+memtest_shared
+memtest_shared.bin
+memtest.iso
+memtest.0
+*.swp
+*.swo

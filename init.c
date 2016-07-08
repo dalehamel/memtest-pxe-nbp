@@ -29,6 +29,7 @@ extern int act_cpus;
 extern int found_cpus;
 unsigned long imc_type = 0;
 extern int maxcpus;
+extern int max_passes;
 extern char cpu_mask[];
 extern void initialise_cpus();
 
@@ -210,7 +211,7 @@ void init(void)
   cprint(6, 0, "------------------------------------------------------------------------------");
 	cprint(7, 0, "Core#:");
 	cprint(8, 0, "State:");
-	cprint(9, 0, "Cores:    Active /    Total (Run: All) | Pass:       0        Errors:      0  ");
+	cprint(9, 0, "Cores:    Active /    Total (Run: All) | Pass:       0 Max:   0 Errors:      0");
 	cprint(10, 0, "------------------------------------------------------------------------------");
 
 	/*	
@@ -226,6 +227,7 @@ void init(void)
 	cprint(7, 39, "| Chipset : Unknown");
 	cprint(8, 39, "| Memory Type : Unknown");
 	
+	dprint(LINE_INFO, 60, max_passes, 3, 0);
 
 	for(i=0; i < 6; i++) {
 		cprint(i, COL_MID-2, "| ");

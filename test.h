@@ -274,6 +274,7 @@ struct err_info {
 /* Define common variables accross relocations of memtest86 */
 struct vars {
 	int pass;
+	int max_passes;
 	int msg_line;
 	int ecount;
 	int ecc_ecount;

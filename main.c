@@ -68,6 +68,7 @@ volatile int    mstr_cpu;
 volatile int	run_cpus;
 volatile int	cpu_ord=0;
 int		maxcpus=MAX_CPUS;
+int		max_passes=0;
 volatile short  cpu_sel;
 volatile short	cpu_mode;
 char		cpu_mask[MAX_CPUS];
@@ -330,6 +331,11 @@ static void parse_command_line(void)
 		if (!strncmp(cp, "onepass", 7)) {
 			cp += 7;
 			onepass++;
+		}
+		/* Run a maximum of a number of passes, then exit*/
+		if (!strncmp(cp, "passes=", 7)) {
+			cp += 7;
+			max_passes=(int)simple_strtoul(cp, &dummy, 10);
 		}
 		/* Exit immediately on failure */
 		if (!strncmp(cp, "onefail", 7)) {
@@ -807,9 +813,9 @@ void test_start(void)
 			
 			if (v->ecount == 0) 
 				{
-			    /* If onepass is enabled and we did not get any errors
+			    /* If onepass is enabled or we reached our maximum passes and we did not get any errors
 			     * exit the test */
-			    if (onepass) { v->exit++; }
+			    if (onepass || (max_passes && v->pass >= max_passes)) { v->exit++; }
 			    if (!btflag) cprint(LINE_MSG, COL_MSG-8, "** Pass complete, no errors, press Esc to exit **");
 					if(BEEP_END_NO_ERROR) 
 						{
